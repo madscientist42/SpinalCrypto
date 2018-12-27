@@ -2,6 +2,7 @@ package play
 
 import spinal.core._
 import spinal.lib._
+import spinal.lib.misc.LFSR
 
 import spinal.crypto._
 import spinal.crypto.hash._
@@ -10,7 +11,6 @@ import spinal.crypto.mac.hmac.{HMACCoreStdConfig, HMACCoreStdIO, HMACCore_Std}
 import spinal.crypto.symmetric.SymmetricCryptoBlockIO
 import spinal.crypto.symmetric.des.{DESCore_Std, TripleDESCore_Std}
 import spinal.crypto.symmetric.aes._
-import spinal.crypto.misc.LFSR
 
 
 

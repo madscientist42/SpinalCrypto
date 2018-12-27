@@ -1,8 +1,8 @@
 package testbench
 
 import spinal.core._
-import spinal.crypto.checksum._
 import spinal.lib._
+import spinal.lib.checksum._
 import spinal.lib.bus.amba4.axi.{Axi4, Axi4ToAxi4Shared}
 import spinal.lib.com.uart.Uart
 

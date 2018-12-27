@@ -26,6 +26,7 @@
 package spinal.crypto.hash.sim
 
 
+import spinal.lib._
 import spinal.core._
 import spinal.core.sim._
 import spinal.crypto._
@@ -61,7 +62,7 @@ object HashIOsim {
     val refDigest = refCrypto(msgHex)
 
     // number of iteration
-    var index = math.ceil(msgHex.length  / byteSizeMsg.toDouble).toInt
+    var index = scala.math.ceil(msgHex.length  / byteSizeMsg.toDouble).toInt
 
     // Send all block of message
     while(index != 0) {

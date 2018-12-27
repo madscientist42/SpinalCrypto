@@ -26,6 +26,7 @@
 package spinal.crypto.symmetric.aes
 
 import spinal.core._
+import spinal.lib._
 
 
 

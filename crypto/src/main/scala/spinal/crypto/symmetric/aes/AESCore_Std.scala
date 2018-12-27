@@ -27,10 +27,10 @@ package spinal.crypto.symmetric.aes
 
 import spinal.core._
 import spinal.lib._
+import spinal.lib.devtype._
 import spinal.lib.fsm.{EntryPoint, State, StateMachine}
 
 import spinal.crypto.symmetric.{SymmetricCryptoBlockConfig, SymmetricCryptoBlockIO}
-import spinal.crypto.devtype._
 
 
 /**

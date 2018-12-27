@@ -4,8 +4,8 @@ import spinal.core._
 import spinal.crypto.hash.md5.MD5Core_Std
 import spinal.crypto.mac.hmac.{HMACCoreStdConfig, HMACCore_Std}
 import spinal.crypto.symmetric.aes.AESCore_Std
-import spinal.crypto.checksum._
 import spinal.lib._
+import spinal.lib.checksum._
 import spinal.crypto.symmetric.des.{DESCore_Std, TripleDESCore_Std}
 import spinal.lib.bus.amba3.apb.{Apb3, Apb3Config, Apb3SlaveFactory}
 

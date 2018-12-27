@@ -4,7 +4,7 @@ import java.security.SecureRandom
 import javax.crypto.{Cipher, KeyGenerator}
 import javax.crypto.spec.{IvParameterSpec, SecretKeySpec}
 
-import spinal.crypto.{BigIntToHexString, CastByteArray}
+import spinal.lib.{BigIntToHexString, CastByteArray}
 
 import scala.util.Random
 

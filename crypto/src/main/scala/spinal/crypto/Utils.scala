@@ -25,50 +25,8 @@
 \*                                                                           */
 package spinal.crypto
 
-import scala.collection.mutable.ListBuffer
-
-
-/**
-  * Polynomial in Galois Field 2
-  */
-class PolynomialGF2(val coefficient: List[Int]) {
-
-  def ==(that: PolynomialGF2): Boolean = this.coefficient.sorted == that.coefficient.sorted
-  def !=(that: PolynomialGF2): Boolean = !(this == that)
-
-  def order: Int = coefficient.max
-
-
-  override def toString: String = {
-    (for(coef <- coefficient) yield coef match{
-      case 0 => "1"
-      case 1 => "x"
-      case _ => s"x^$coef"
-    }).mkString(" + ")
-  }
-
-  /**
-    * Return a list of boolean representing the polynomial
-    */
-  def toBooleanList(): List[Boolean] = {
-
-    val listBuffer = ListBuffer[Boolean]()
-
-    for(i <- 0 to coefficient.max){
-      listBuffer.append(coefficient.contains(i))
-    }
-
-    return listBuffer.toList.reverse
-  }
-}
-
-
-/**
-  * Transform a BigInt value into a hexadecimal string
-  */
-object BigIntToHexString {
-  def apply(value: BigInt): String = s"0x${value.toByteArray.map(b => f"${b}%02X").mkString("")}"
-}
+import spinal.core._
+import spinal.lib._
 
 
 /**
@@ -78,21 +36,6 @@ object Endianness {
   def apply(input: Array[Byte]): Array[Byte] = {
     assert(input.length % 4 == 0, s"Endianess input is not a multiple of 4 (current length ${input.length}) ")
     return input.grouped(4).flatMap(_.reverse.toList).toArray
-  }
-}
-
-/**
-  * Cast a Byte Array
-  */
-object CastByteArray {
-  def apply(input: Array[Byte], castSize: Int): Array[Byte] = {
-    if (input.length == castSize) {
-      input
-    } else if (input.length > castSize) {
-      input.takeRight(castSize)
-    } else {
-      Array.fill[Byte](castSize - input.length)(0x00) ++ input
-    }
   }
 }
 

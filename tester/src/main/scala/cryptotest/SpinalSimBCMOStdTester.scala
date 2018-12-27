@@ -4,11 +4,11 @@ import org.scalatest.FunSuite
 import ref.symmetric.DES
 import spinal.core._
 import spinal.lib._
+import spinal.lib.{BigIntToHexString, CastByteArray}
 import spinal.crypto.symmetric.des.DESCore_Std
 import spinal.crypto.symmetric._
 import spinal.sim._
 import spinal.core.sim._
-import spinal.crypto.{BigIntToHexString, CastByteArray}
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random

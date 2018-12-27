@@ -4,7 +4,8 @@ package cryptotest
 import org.scalatest.FunSuite
 import ref.mac.HMAC
 import spinal.core._
-import spinal.crypto.{BigIntToHexString, CastByteArray, Endianness}
+import spinal.lib.{BigIntToHexString, CastByteArray}
+import spinal.crypto.Endianness
 import spinal.crypto.hash.md5.MD5Core_Std
 import spinal.crypto.mac.hmac.{HMACCoreStdConfig, HMACCoreStdIO, HMACCore_Std}
 import spinal.lib.slave

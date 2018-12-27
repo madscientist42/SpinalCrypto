@@ -29,6 +29,7 @@ import spinal.crypto._
 
 import spinal.core._
 import spinal.core.sim._
+import spinal.lib._
 import spinal.crypto.symmetric._
 
 import scala.util.Random

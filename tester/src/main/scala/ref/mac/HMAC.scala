@@ -4,7 +4,7 @@ package ref.mac
 import javax.crypto.Mac
 import javax.crypto.spec.SecretKeySpec
 
-import spinal.crypto.BigIntToHexString
+import spinal.lib.BigIntToHexString
 
 
 object HMAC {

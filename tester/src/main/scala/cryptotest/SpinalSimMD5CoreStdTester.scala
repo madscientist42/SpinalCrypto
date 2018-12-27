@@ -9,7 +9,7 @@ import spinal.crypto.hash.md5.{MD5Core_Std, MD5Engine_Std}
 import spinal.crypto.symmetric.sim.SymmetricCryptoBlockIOSim
 import spinal.sim._
 import spinal.core.sim._
-import spinal.crypto.{BigIntToHexString, CastByteArray}
+import spinal.lib.{BigIntToHexString, CastByteArray}
 import spinal.crypto.hash.sim.{HashEngineIOsim, HashIOsim}
 
 import scala.util.Random

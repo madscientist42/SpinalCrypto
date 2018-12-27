@@ -12,8 +12,8 @@ object SpinalBuild extends Build {
     settings = defaultSettings  ++  Seq(
       name    := "SpinalHDL Crypto",
       version := SpinalVersion.crypto,
-      libraryDependencies += "com.github.spinalhdl" % "spinalhdl-core_2.11" % "1.1.6",
-      libraryDependencies += "com.github.spinalhdl" % "spinalhdl-lib_2.11" % "1.1.6"
+      libraryDependencies += "com.github.spinalhdl" % "spinalhdl-core_2.11" % "1.2.2",
+      libraryDependencies += "com.github.spinalhdl" % "spinalhdl-lib_2.11" % "1.2.2"
     )
   )
 
@@ -27,6 +27,8 @@ object SpinalBuild extends Build {
       publishTo    := None,
       publish      := {},
       publishLocal := {},
+      libraryDependencies += "com.github.spinalhdl" % "spinalhdl-core_2.11" % "1.2.2",
+      libraryDependencies += "com.github.spinalhdl" % "spinalhdl-lib_2.11" % "1.2.2",
       libraryDependencies += "com.github.spinalhdl" % "vexriscv_2.11" % "latest.release",
       libraryDependencies += "org.bouncycastle" % "bcprov-jdk15on" % "1.60",
       libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.1"

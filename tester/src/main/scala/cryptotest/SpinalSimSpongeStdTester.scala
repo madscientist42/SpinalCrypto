@@ -5,10 +5,10 @@ import spinal.sim._
 import spinal.core.sim._
 import org.scalatest.FunSuite
 import ref.constructor.Sponge
-import spinal.crypto.{BigIntToHexString, CastByteArray}
 import spinal.crypto.construtor.{SpongeCoreCmd_Std, SpongeCoreRsp_Std, SpongeCore_Std}
 import spinal.crypto.primitive.keccak.{FuncIO_Std, KeccakF_Std}
 import spinal.lib._
+import spinal.lib.{BigIntToHexString, CastByteArray}
 
 import scala.util.Random
 

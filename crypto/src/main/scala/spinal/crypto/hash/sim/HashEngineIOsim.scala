@@ -1,6 +1,6 @@
 package spinal.crypto.hash.sim
 
-
+import spinal.lib._
 import spinal.core._
 import spinal.core.sim._
 import spinal.crypto._

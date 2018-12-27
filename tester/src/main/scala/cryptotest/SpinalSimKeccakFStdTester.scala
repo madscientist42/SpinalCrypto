@@ -3,7 +3,7 @@ package cryptotest
 import spinal.core.{assert, _}
 import spinal.core.sim._
 import org.scalatest.FunSuite
-import spinal.crypto.BigIntToHexString
+import spinal.lib.BigIntToHexString
 import spinal.crypto.primitive.keccak.KeccakF_Std
 
 
