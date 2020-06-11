@@ -3,7 +3,6 @@ package cryptotest
 
 import org.scalatest.FunSuite
 import spinal.core._
-import spinal.sim._
 import spinal.core.sim._
 import spinal.crypto.misc.LFSR
 
@@ -25,7 +24,7 @@ object LFSR_IO_SIM{
     dut.inc  #= false
   }
 
-  def doSim(dut: LFSR_IO_TEST, clockDomain: ClockDomain, order_poly: Int,  extended: Boolean): Unit@suspendable = {
+  def doSim(dut: LFSR_IO_TEST, clockDomain: ClockDomain, order_poly: Int,  extended: Boolean): Unit = {
 
     val lfsr_buf = new ListBuffer[BigInt]()
 
@@ -41,7 +40,8 @@ object LFSR_IO_SIM{
 
     // iteration
     val iteration = if(extended) math.pow(2, order_poly).toInt else math.pow(2, order_poly).toInt - 1
-    Suspendable.repeat(iteration){
+
+    for(_ <- 0 until iteration){
       clockDomain.waitActiveEdge()
 
       val value = dut.value.toBigInt

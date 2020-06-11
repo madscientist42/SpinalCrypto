@@ -8,19 +8,15 @@ import spinal.core.SpinalConfig
 import spinal.crypto.hash.BIG_endian
 import spinal.crypto.hash.sim.{HashEngineIOsim, HashIOsim}
 
-import spinal.sim._
 import spinal.core.sim._
 import spinal.crypto.hash.sha2._
-import spinal.crypto._
-
-
-import scala.util.Random
-
 
 /**
   * Test SHA2Core_Std
   */
 class SpinalSimSHA2CoreStdTester extends FunSuite {
+
+  val NBR_ITERATION = 100
 
   /**
     * SHA2CoreStd_256
@@ -37,13 +33,8 @@ class SpinalSimSHA2CoreStdTester extends FunSuite {
 
       dut.clockDomain.waitActiveEdge()
 
-      var iteration = 100
-
-      while(iteration != 0){
-
-        HashIOsim.doSim(dut.io, dut.clockDomain, iteration, BIG_endian )(SHA2.digest("SHA-256"))
-
-        iteration -= 1
+      for(i <- 0 to NBR_ITERATION){
+        HashIOsim.doSim(dut.io, dut.clockDomain, i, BIG_endian )(SHA2.digest("SHA-256"))
       }
     }
   }
@@ -63,13 +54,8 @@ class SpinalSimSHA2CoreStdTester extends FunSuite {
 
       dut.clockDomain.waitActiveEdge()
 
-      var iteration = 100
-
-      while(iteration != 0){
-
-        HashIOsim.doSim(dut.io, dut.clockDomain, iteration, BIG_endian )(SHA2.digest("SHA-512"))
-
-        iteration -= 1
+      for(i <- 0 to NBR_ITERATION){
+        HashIOsim.doSim(dut.io, dut.clockDomain, i, BIG_endian )(SHA2.digest("SHA-512"))
       }
     }
   }
@@ -107,13 +93,9 @@ class SpinalSimSHA2EngineStdTester extends FunSuite {
         BigInt("23097d223405d8228642a477bda255b32aadbce4bda0b3f7e36c9da7", 16)
       )
 
-      var index = 0
+      for((ref, msg) <- refDigest.zip(messages)){
 
-      while(index < refDigest.length){
-
-        HashEngineIOsim.doSim(dut.io, dut.clockDomain, messages(index), refDigest(index))
-
-        index += 1
+        HashEngineIOsim.doSim(dut.io, dut.clockDomain, msg, ref)
       }
     }
   }
@@ -147,13 +129,8 @@ class SpinalSimSHA2EngineStdTester extends FunSuite {
         BigInt("248d6a61d20638b8e5c026930c3e6039a33ce45964ff2167f6ecedd419db06c1", 16)
       )
 
-      var index = 0
-
-      while(index < refDigest.length){
-
-        HashEngineIOsim.doSim(dut.io, dut.clockDomain, messages(index), refDigest(index))
-
-        index += 1
+      for((ref, msg) <- refDigest.zip(messages)){
+        HashEngineIOsim.doSim(dut.io, dut.clockDomain, msg, ref)
       }
 
     }
@@ -184,13 +161,8 @@ class SpinalSimSHA2EngineStdTester extends FunSuite {
         BigInt("cb00753f45a35e8bb5a03d699ac65007272c32ab0eded1631a8b605a43ff5bed8086072ba1e7cc2358baeca134c825a7", 16)
       )
 
-      var index = 0
-
-      while(index < refDigest.length){
-
-        HashEngineIOsim.doSim(dut.io, dut.clockDomain, messages(index), refDigest(index))
-
-        index += 1
+      for((ref, msg) <- refDigest.zip(messages)){
+        HashEngineIOsim.doSim(dut.io, dut.clockDomain, msg, ref)
       }
     }
   }
@@ -224,13 +196,8 @@ class SpinalSimSHA2EngineStdTester extends FunSuite {
 
       )
 
-      var index = 0
-
-      while(index < refDigest.length){
-
-        HashEngineIOsim.doSim(dut.io, dut.clockDomain, messages(index), refDigest(index))
-
-        index += 1
+      for((ref, msg) <- refDigest.zip(messages)){
+        HashEngineIOsim.doSim(dut.io, dut.clockDomain, msg, ref)
       }
     }
   }
@@ -260,13 +227,8 @@ class SpinalSimSHA2EngineStdTester extends FunSuite {
         BigInt("4634270f707b6a54daae7530460842e20e37ed265ceee9a43e8924aa", 16)
       )
 
-      var index = 0
-
-      while(index < refDigest.length){
-
-        HashEngineIOsim.doSim(dut.io, dut.clockDomain, messages(index), refDigest(index))
-
-        index += 1
+      for((ref, msg) <- refDigest.zip(messages)){
+        HashEngineIOsim.doSim(dut.io, dut.clockDomain, msg, ref)
       }
     }
   }
@@ -296,13 +258,11 @@ class SpinalSimSHA2EngineStdTester extends FunSuite {
         BigInt("53048e2681941ef99b2e29b76b4c7dabe4c2d0c634fc6d46e0e2f13107e7af23", 16)
       )
 
-      var index = 0
 
-      while(index < refDigest.length){
+      for((ref, msg) <- refDigest.zip(messages)){
 
-        HashEngineIOsim.doSim(dut.io, dut.clockDomain, messages(index), refDigest(index))
+        HashEngineIOsim.doSim(dut.io, dut.clockDomain, msg, ref)
 
-        index += 1
       }
     }
   }

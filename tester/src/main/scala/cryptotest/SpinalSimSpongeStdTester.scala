@@ -1,19 +1,19 @@
 package cryptotest
 
 import spinal.core._
-import spinal.sim._
 import spinal.core.sim._
 import org.scalatest.FunSuite
 import ref.constructor.Sponge
 import spinal.crypto.{BigIntToHexString, CastByteArray}
 import spinal.crypto.construtor.{SpongeCoreCmd_Std, SpongeCoreRsp_Std, SpongeCore_Std}
-import spinal.crypto.primitive.keccak.{FuncIO_Std, KeccakF_Std}
 import spinal.lib._
 
 import scala.util.Random
 
 
 class SpinalSimSpongeStdTester extends FunSuite {
+
+  val NBR_ITERATION = 10
 
 
   class FakeSponge(d: Int) extends Component {
@@ -63,10 +63,9 @@ class SpinalSimSpongeStdTester extends FunSuite {
 
       dut.clockDomain.forkStimulus(2)
 
-      var iteration = 10
 
       // send differnt pattern
-      while(iteration != 0){
+      for(_ <- 0 to NBR_ITERATION){
 
         val nbrBlock = Random.nextInt(5) + 1
 
@@ -109,7 +108,6 @@ class SpinalSimSpongeStdTester extends FunSuite {
 
         dut.clockDomain.waitActiveEdge(5)
 
-        iteration -= 1
       }
     }
   }
@@ -124,10 +122,9 @@ class SpinalSimSpongeStdTester extends FunSuite {
 
       dut.clockDomain.forkStimulus(2)
 
-      var iteration = 10
 
       // send differnt pattern
-      while(iteration != 0){
+      for(_ <- 0 to NBR_ITERATION){
 
         val nbrBlock = Random.nextInt(5) + 1
 
@@ -170,7 +167,6 @@ class SpinalSimSpongeStdTester extends FunSuite {
 
         dut.clockDomain.waitActiveEdge(5)
 
-        iteration -= 1
       }
     }
   }

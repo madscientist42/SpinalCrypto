@@ -5,13 +5,14 @@ import ref.symmetric.AES
 import spinal.crypto.symmetric.aes.AESCore_Std
 import spinal.crypto.symmetric.sim.SymmetricCryptoBlockIOSim
 import spinal.core._
-import spinal.sim._
 import spinal.core.sim._
 
 import scala.util.Random
 
 
 class SpinalSimAESCoreTester extends FunSuite {
+
+  val NBR_ITERATION = 20
 
   val ref_key_192     = List(
     BigInt("6ABBBC50D08AFC199FBC016526C4283B8FEC6D2B885FC561", 16),
@@ -118,7 +119,7 @@ class SpinalSimAESCoreTester extends FunSuite {
 
       dut.clockDomain.waitActiveEdge()
 
-      Suspendable.repeat(20){
+      for(_ <- 0 to NBR_ITERATION){
 
         SymmetricCryptoBlockIOSim.doSim(dut.io, dut.clockDomain, enc = Random.nextBoolean() )(AES.block(128, verbose = false))
       }
@@ -146,13 +147,8 @@ class SpinalSimAESCoreTester extends FunSuite {
 
       dut.clockDomain.waitActiveEdge()
 
-      var index = 0
 
-      while(index != ref_key_192.length){
-
-        val key    = ref_key_192(index)
-        val plain  = ref_plain_192(index)
-        val cipher = ref_cipher_192(index)
+      for((key, plain, cipher) <- (ref_key_192, ref_plain_192, ref_cipher_192).zipped){
 
         SymmetricCryptoBlockIOSim.doSim(
           dut         = dut.io,
@@ -168,7 +164,6 @@ class SpinalSimAESCoreTester extends FunSuite {
           blockIn     = cipher,
           keyIn       = key)((a: BigInt, b: BigInt, c:Boolean) => plain)
 
-        index += 1
       }
 
 
@@ -196,13 +191,8 @@ class SpinalSimAESCoreTester extends FunSuite {
 
       dut.clockDomain.waitActiveEdge()
 
-      var index = 0
+      for((key, plain, cipher) <- (ref_key_256, ref_plain_256, ref_cipher_256).zipped){
 
-      while(index != ref_key_256.length){
-
-        val key    = ref_key_256(index)
-        val plain  = ref_plain_256(index)
-        val cipher = ref_cipher_256(index)
 
         SymmetricCryptoBlockIOSim.doSim(
           dut         = dut.io,
@@ -218,7 +208,6 @@ class SpinalSimAESCoreTester extends FunSuite {
           blockIn     = cipher,
           keyIn       = key)((a: BigInt, b: BigInt, c:Boolean) => plain)
 
-        index += 1
       }
 
       // Release the valid signal at the end of the simulation

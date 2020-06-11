@@ -4,7 +4,6 @@ import org.scalatest.FunSuite
 import ref.symmetric.TripleDES
 import spinal.core._
 import spinal.crypto.symmetric.sim.SymmetricCryptoBlockIOSim
-import spinal.sim._
 import spinal.core.sim._
 import spinal.crypto.symmetric.des.TripleDESCore_Std
 
@@ -20,6 +19,8 @@ class SpinalSimTripleDESCoreTester extends FunSuite {
     */
   test("TripleDESCore_Std"){
 
+    val NBR_ITERATION = 20
+
     SimConfig.withConfig(SpinalConfig(inlineRom = true)).compile(new TripleDESCore_Std()).doSim{ dut =>
 
       dut.clockDomain.forkStimulus(2)
@@ -29,8 +30,7 @@ class SpinalSimTripleDESCoreTester extends FunSuite {
 
       dut.clockDomain.waitActiveEdge()
 
-      Suspendable.repeat(20){
-
+      for(_ <- 0 to NBR_ITERATION){
         SymmetricCryptoBlockIOSim.doSim(dut.io, dut.clockDomain, enc = Random.nextBoolean())(TripleDES.block(verbose = false))
       }
 

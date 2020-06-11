@@ -23,65 +23,36 @@
 ** OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR  **
 ** THE USE OR OTHER DEALINGS IN THE SOFTWARE.                                **
 \*                                                                           */
-package spinal.crypto.symmetric.sim
-
-import spinal.crypto._
+package spinal.crypto.symmetric.twofish
 
 import spinal.core._
-import spinal.core.sim._
-import spinal.crypto.symmetric._
 
-import scala.util.Random
+object Twofish {
 
+  def blockWidth  = 128 bits
 
-
-object SymmetricCryptoBlockIOSim {
-
-  /**
-    * Initialize the IO with random value
-    */
-  def initializeIO(dut: SymmetricCryptoBlockIO): Unit ={
-    dut.cmd.valid #= false
-    dut.cmd.block.randomize()
-    dut.cmd.key.randomize()
-    if(dut.config.useEncDec) dut.cmd.enc.randomize()
+  def getWidthOfS(keySize: Int) = keySize match{
+    case 128 => 2
+    case 192 => 3
+    case 256 => 4
   }
 
+  def qxT0 = List(
+    List(0x8, 0x1, 0x7, 0xD, 0x6, 0xF, 0x3, 0x2, 0x0, 0xB, 0x5, 0x9, 0xE, 0xC, 0xA, 0x4),
+    List(0x2, 0x8, 0xB, 0xD, 0xF, 0x7, 0x6, 0xE, 0x3, 0x1, 0x9, 0x4, 0x0, 0xA, 0xC, 0x5)
+  )
+  def qxT1 = List(
+    List(0xE, 0xC, 0xB, 0x8, 0x1, 0x2, 0x3, 0x5, 0xF, 0x4, 0xA, 0x6, 0x7, 0x0, 0x9, 0xD),
+    List(0x1, 0xE, 0x2, 0xB, 0x4, 0xC, 0x3, 0x7, 0x6, 0xD, 0xA, 0x5, 0xF, 0x9, 0x0, 0x8)
+  )
+  def qxT2 = List(
+    List(0xB, 0xA, 0x5, 0xE, 0x6, 0xD, 0x9, 0x0, 0xC, 0x8, 0xF, 0x3, 0x2, 0x4, 0x7, 0x1),
+    List(0x4, 0xC, 0x7, 0x5, 0x1, 0x6, 0x9, 0xA, 0x0, 0xE, 0xD, 0x8, 0x2, 0xB, 0x3, 0xF)
 
-  /**
-    * Symmetric Crypto Block IO simulation
-    */
-  def doSim(dut: SymmetricCryptoBlockIO, clockDomain: ClockDomain, enc: Boolean, blockIn: BigInt = null, keyIn: BigInt = null)(refCrypto: (BigInt, BigInt, Boolean) => BigInt ): Unit ={
+  )
+  def qxT3 = List(
+    List(0xD, 0x7, 0xF, 0x4, 0x1, 0x2, 0x6, 0xE, 0x9, 0xB, 0x3, 0x0, 0x8, 0x5, 0xC, 0xA),
+    List(0xb, 0x9, 0x5, 0x1, 0xC, 0x3, 0xD, 0xE, 0x6, 0x4, 0x7, 0xF, 0x2, 0x0, 0x8, 0xA)
+  )
 
-    // Generate random input
-    val block_in = if(blockIn == null) BigInt(dut.cmd.block.getWidth, Random) else blockIn
-    val key      = if(keyIn == null)   BigInt(dut.cmd.key.getWidth, Random)   else keyIn
-
-    // Send command
-    dut.cmd.valid #= true
-    dut.cmd.block #= block_in
-    dut.cmd.key   #= key
-    if(dut.config.useEncDec) dut.cmd.enc #= enc
-
-    clockDomain.waitActiveEdge()
-
-    // Wait response
-    waitUntil(dut.rsp.valid.toBoolean == true)
-
-    val rtlBlock_out = dut.rsp.block.toBigInt
-    val refBlock_out = refCrypto(key, block_in, enc)
-
-    // Check result
-    assert(BigInt(rtlBlock_out.toByteArray.takeRight(dut.cmd.block.getWidth / 8)) == BigInt(refBlock_out.toByteArray.takeRight(dut.cmd.block.getWidth / 8)) , s"Wrong result RTL ${BigIntToHexString(rtlBlock_out)} !=  REF ${BigIntToHexString(refBlock_out)}")
-
-
-    // release the command valid between each transaction randomly
-    clockDomain.waitActiveEdge()
-
-    if(Random.nextBoolean()){
-      initializeIO(dut)
-
-      clockDomain.waitActiveEdge()
-    }
-  }
 }
